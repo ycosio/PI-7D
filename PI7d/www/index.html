@@ -82,12 +82,18 @@ navigator.serviceWorker.register('service-worker.js')
 Listado de Clientes
 </div> 
 <li ng-repeat="x in myDataC" class="item item-button-right">
-<a class="item" ui-sref="editarClientes" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
+<a class="item campo" ui-sref="editarClientes" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
     <i class="icon ion-ios-edit"></i>{{ x.nombre + '  ' + x.apellido }}
 </a>
-<button class="button button-assertive" ng-click="EliminarC({{x.id}});">
-<i class="icon ion-ios-trash"></i>
-</button>
+<div class="buttons">
+	<button class="button add" ui-sref="ProductosVenta" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
+	<i class="icon ion-android-cart"></i>
+	</button>
+	
+	<button class="button button-assertive" ng-click="EliminarC({{x.id}});">
+	<i class="icon ion-ios-trash"></i>
+	</button>
+</div>
  
 </li>
 </ul>
@@ -182,8 +188,8 @@ Agregar Clientes
 </ion-view>
 </script>
 
-<script id="Vendedores.html" type="text/ng-template">
-<!-- The title of the ion-view will be shown on the navbar -->
+<!-- <script id="Vendedores.html" type="text/ng-template">
+<! The title of the ion-view will be shown on the navbar 
 <ion-view title="Vendedores" cache-view="false">
 <ion-nav-buttons side="left">
 
@@ -212,7 +218,7 @@ Agregar Clientes
 	</ul>
 </ion-content>
 </ion-view>
-</script>
+</script>-->
 
 <script id="Productos.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
@@ -235,7 +241,7 @@ Listado de Productos
 </div> 
 <li ng-repeat="x in myDataP" class="item item-button-right">
 <a class="item" ng-click="parametrosP('{{x.id}}', '{{x.nombre}}', '{{x.precio}}', '{{x.cantidad}}', '{{x.descripcion}}');">
- 	<i class="icon ion-ios-edit"></i>{{ x.nombre + ' a solo $' + x.precio }}
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Disponibles: ' + x.cantidad  }}
 </a>
 <button class="button button-assertive" ng-click="EliminarP({{x.id}});">
 <i class="icon ion-ios-trash"></i>
@@ -332,9 +338,9 @@ Listado de Productos
 </ion-view>
 </script>
 
-<script id="editarVendedores.html" type="text/ng-template">
+<script id="perfilVendedor.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Editar vendedor {{idVendedor}}">
+<ion-view title="Editar perfil {{id}}">
 <ion-nav-buttons side="left">
 
 </ion-nav-buttons>
@@ -377,7 +383,7 @@ Listado de Productos
 
 
 <center>
-	<button class="button button-dark" ng-click="EditarV({{idVendedor}});">
+	<button class="button button-dark" ng-click="EditarV({{id}});">
 	Editar vendedor
 	</button>
 </center>
@@ -385,6 +391,60 @@ Listado de Productos
 </ion-content>
 </ion-view>
 </script>
+
+<!--<script id="editarVendedores.html" type="text/ng-template">
+< The title of the ion-view will be shown on the navbar 
+<ion-view title="Editar vendedor {{idVendedor}}">
+<ion-nav-buttons side="left">
+
+</ion-nav-buttons>
+
+<ion-nav-buttons side="right">
+<button class="button" ng-click="Out()" onclick="document.getElementById('footer').style.visibility = 'hidden';">
+<RightButton!>Cerrar sesion</RightButton!>
+</button>
+</ion-nav-buttons>
+
+<ion-content ng-controller="myCtrl">
+
+<div class="list">
+	<div class="list">
+	<label class="item item-input item-stacked-label">
+		<span class="input-label"></span>
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Nombre</span>
+		<input type="text" placeholder="Juen" ng-model="nombreVendedorE">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Apellidos</span>
+		<input type="text" placeholder="Ramirez" ng-model="apellidosVendedor">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Correo</span>
+		<input type="text" placeholder="juen@ucol.mx" ng-model="correoVendedor">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Password</span>
+		<input type="password" ng-model="passwordVendedor">
+	</label>
+
+</div>
+
+
+<center>
+	<button class="button button-dark" ng-click="EditarV({{idVendedor}});">
+	Editar vendedor
+	</button>
+</center>
+
+</ion-content>
+</ion-view>
+</script>-->
 
 <script id="editarClientes.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
@@ -440,6 +500,116 @@ Listado de Productos
 </ion-view>
 </script>
 
+<script id="ProductosVenta.html" type="text/ng-template">
+<!-- The title of the ion-view will be shown on the navbar -->
+<ion-view title="Productos para venta">
+<ion-nav-buttons side="left">
+
+</ion-nav-buttons>
+
+<ion-nav-buttons side="right">
+<button class="button" ng-click="Out()" onclick="document.getElementById('footer').style.visibility = 'hidden';">
+<RightButton!>Cerrar sesion</RightButton!>
+</button>
+</ion-nav-buttons>
+
+<ion-content ng-controller="myCtrl">
+
+<div class="list">
+	<div class="list">
+	<label class="item item-input item-stacked-label">
+		<span class="input-label"><strong> Nueva venta para el cliente {{nombreCliente}} </strong></span>
+	</label>
+
+</div>
+
+<ul class="list">
+<div class="item item-divider">
+Listado de Productos
+</div> 
+<li ng-repeat="x in myDataPD" class="item item-button-right">
+<a class="item" ui-sref="Venta" ng-click="parametrosP('{{x.id}}', '{{x.nombre}}', '{{x.precio}}', '{{x.cantidad}}', '{{x.descripcion}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Disponibles: ' + x.cantidad }}
+</a>
+</button>
+
+</li>
+</ul>
+
+</ion-content>
+</ion-view>
+</script>
+
+<script id="Venta.html" type="text/ng-template">
+<!-- The title of the ion-view will be shown on the navbar -->
+<ion-view title="Venta {{nombreProducto}}" cache-view="false">
+<ion-nav-buttons side="left">
+
+</ion-nav-buttons>
+
+<ion-nav-buttons side="right">
+<button class="button" ng-click="Out()" onclick="document.getElementById('footer').style.visibility = 'hidden';">
+<RightButton!>Cerrar sesion</RightButton!>
+</button>
+</ion-nav-buttons>
+
+<ion-content ng-controller="myCtrl">
+
+<div class="list">
+	<div class="list">
+	<label class="item item-input item-stacked-label">
+		<span class="input-label"><strong> Nueva venta para el cliente {{nombreCliente}} </strong></span>
+	</label>
+	
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Precio: ${{precioProducto}}</span>
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Cantidad</span>
+		<input type="text" placeholder="5" ng-model="cantidadProducto">
+	</label>
+
+	<div class="list">
+
+  	<label class="item item-input item-select">
+    	<div class="input-label">
+      	Plazo (1:Semanal - 2:Quincenal - 3:Mensual)
+    	</div>
+    	<select ng-model="plazoVenta">
+    	<option selected>1</option>
+      	<option>2</option>
+      	<option>3</option>
+    	</select>
+  	</label>
+
+  		<label class="item item-input item-select">
+    	<div class="input-label">
+      	Numero de pagos
+    	</div>
+    	<select ng-model="pagosPendientes">
+    	<option selected>6</option>
+      	<option>12</option>
+      	<option>18</option>
+    	</select>
+  	</label>
+
+	</div>
+
+
+</div>
+
+
+<center>
+	<button class="button button-dark" ng-sref="Productos" ng-click="VentaP({{idProducto}});">
+	Editar producto
+	</button>
+</center>
+
+</ion-content>
+</ion-view>
+</script>
+
 <script id="adminHome.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
 <ion-view title="Admin">
@@ -473,9 +643,9 @@ Listado de Productos
 
 <div class="bar bar-footer">
   <div id="footer" style="visibility: hidden" class="tabs tabs-icon-left">
-  <a class="tab-item" ui-sref="Vendedores">
+  <a class="tab-item" ui-sref="perfilVendedor">
     <i class="ion-person"></i>
-    Vendedores
+    Perfil
   </a>
   <a class="tab-item" ui-sref="home">
     <i class="icon ion-home"></i>

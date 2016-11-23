@@ -50,6 +50,12 @@ templateUrl: 'Vendedores.html',
 controller : 'myCtrl'
 })
 
+.state('ProductosVenta', {
+url: '/ProductosVenta',
+templateUrl: 'ProductosVenta.html',
+controller : 'myCtrl'
+})
+
 .state('Productos', {
 url: '/Productos',
 templateUrl: 'Productos.html',
@@ -62,9 +68,21 @@ templateUrl: 'editarProductos.html',
 controller : 'myCtrl'
 })
 
-.state('editarVendedores', {
+/*.state('editarVendedores', {
 url: '/editarVendedor',
 templateUrl: 'editarVendedores.html',
+controller : 'myCtrl'
+})*/
+
+.state('perfilVendedor', {
+url: '/perfilVendedor',
+templateUrl: 'perfilVendedor.html',
+controller : 'myCtrl'
+})
+
+.state('Venta', {
+url: '/Venta',
+templateUrl: 'Venta.html',
 controller : 'myCtrl'
 })
 
@@ -88,6 +106,7 @@ $urlRouterProvider.otherwise("/");
 
      $scope.idVendedor=$window.localStorage["idV"];
      $scope.nombreVendedor=$window.localStorage["nombreV"];
+     $scope.nombreVendedorE=$window.localStorage["nombreVE"];
      $scope.apellidosVendedor=$window.localStorage["apellidosV"];
      $scope.correoVendedor=$window.localStorage["correoV"];
      $scope.passwordVendedor=$window.localStorage["passwordV"];
@@ -98,6 +117,9 @@ $urlRouterProvider.otherwise("/");
      $scope.correoCliente=$window.localStorage["correoC"];
      $scope.telefonoCliente=$window.localStorage["telefonoC"];
      $scope.domicilioCliente=$window.localStorage["domicilioC"];
+
+     $scope.plazoVenta="1";
+     $scope.pagosPendientes="6";
 
      $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -118,6 +140,9 @@ $urlRouterProvider.otherwise("/");
                 {
                     $window.localStorage["id"]=response.data.records[0].id;
                     $window.localStorage["nombreV"]=response.data.records[0].nombre;
+                    $window.localStorage["apellidosV"]=response.data.records[0].apellidos;
+                    $window.localStorage["correoV"]=response.data.records[0].correo;
+                    $window.localStorage["passwordV"]=response.data.records[0].password;
                     $scope.correoL="";
                     $scope.passwordL="";
                     document.getElementById('footer').style.visibility = 'visible';
@@ -192,6 +217,15 @@ $urlRouterProvider.otherwise("/");
 
     };
 
+     $scope.ListadoProductos=function()
+    {
+        $http.get("http://bdpi7d.esy.es/productos_disponibles.php?id="+$scope.id).then(function(response) {
+            $scope.myDataPD = response.data.records;
+            //alert('#'+myData.length);
+        });
+
+    };
+
         $scope.EliminarV=function(id)
     {
         $http.get("http://bdpi7d.esy.es/eliminar_vendedor.php?id="+id).then(function(response) {
@@ -241,6 +275,24 @@ $urlRouterProvider.otherwise("/");
         });
     };
 
+     $scope.VentaP=function()
+    {
+        // Agregar e registro
+        $http.get('http://bdpi7d.esy.es/nuevaVenta_PI.php?id_Producto='+$scope.idProducto+'&precio_Producto='+$scope.precioProducto+'&id_Cliente='+$scope.idCliente+'&cantidad='+$scope.cantidadProducto+'&plazo='+$scope.plazoVenta+'&pagos='+$scope.pagosPendientes).then(function(response){
+            alert("Producto guardado ocon exito!! "+response.data.estatus);
+        }, function(error){
+            alert("Venta realizada con exito");
+            $scope.idProducto="";
+            $scope.precioProducto="";
+            $scope.idCliente="";
+            $scope.cantidadProducto="";
+            $scope.plazoVenta="1";
+            $scope.pagosPendientes="6";
+            $state.go('ProductosVenta',{reload: true});
+            $scope.ListadoProductos();
+        });
+    };
+
      $scope.EditarV=function(id)
     {
         // Agregar e registro
@@ -248,12 +300,12 @@ $urlRouterProvider.otherwise("/");
             alert("Vendedor guardado ocon exito!! "+response.data.estatus);
         }, function(error){
             alert("Vendedor guardado con exito");
-            $scope.nombreVendedor="";
-            $scope.apellidosVendedor="";
-            $scope.correoVendedor="";
-            $scope.passwordVendedor="";
-            $state.go('Vendedores',{reload: true});
-            $scope.ListadoV();
+            $window.localStorage["nombreV"]=$scope.nombreVendedor;
+            $window.localStorage["apellidosV"]=$scope.apellidosVendedor;
+            $window.localStorage["correoV"]=$scope.correoVendedor;
+            $window.localStorage["passwordV"]=$scope.passwordVendedor;
+            $state.go('home',{reload: true});
+            $scope.ListadoC();
         });
     };
 
@@ -288,7 +340,7 @@ $urlRouterProvider.otherwise("/");
         $scope.parametrosV=function(id,nombre,apellidos,correo,password)
     {
         $window.localStorage["idV"]=id;
-        $window.localStorage["nombreV"]=nombre;
+        $window.localStorage["nombreVE"]=nombre;
         $window.localStorage["apellidosV"]=apellidos;
         $window.localStorage["correoV"]=correo;
         $window.localStorage["passwordV"]=password;
@@ -308,5 +360,6 @@ $urlRouterProvider.otherwise("/");
     $scope.ListadoV();
     $scope.ListadoC();
     $scope.ListadoP();
+    $scope.ListadoProductos();
 
 })
