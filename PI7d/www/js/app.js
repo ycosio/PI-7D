@@ -27,6 +27,7 @@ angular.module('starter', ['ionic'])
 $stateProvider
 
 .state('login', {
+cache: false,
 url: '/',
 templateUrl: 'CtrlVentas.html',
 controller: 'myCtrl'
@@ -45,24 +46,28 @@ controller : 'myCtrl'
 })
 
 .state('Vendedores', {
+cache: false,
 url: '/Vendedores',
 templateUrl: 'Vendedores.html',
 controller : 'myCtrl'
 })
 
 .state('ProductosVenta', {
+cache: false,
 url: '/ProductosVenta',
 templateUrl: 'ProductosVenta.html',
 controller : 'myCtrl'
 })
 
 .state('Productos', {
+cache: false,
 url: '/Productos',
 templateUrl: 'Productos.html',
 controller : 'myCtrl'
 })
 
 .state('editarProductos', {
+cache: false,
 url: '/editarProducto',
 templateUrl: 'editarProductos.html',
 controller : 'myCtrl'
@@ -75,20 +80,30 @@ controller : 'myCtrl'
 })*/
 
 .state('perfilVendedor', {
+cache: false,
 url: '/perfilVendedor',
 templateUrl: 'perfilVendedor.html',
 controller : 'myCtrl'
 })
 
 .state('Venta', {
+cache: false,
 url: '/Venta',
 templateUrl: 'Venta.html',
 controller : 'myCtrl'
 })
 
 .state('editarClientes', {
+cache: false,
 url: '/editarCliente',
 templateUrl: 'editarClientes.html',
+controller : 'myCtrl'
+})
+
+.state('productosCliente', {
+cache: false,
+url: '/productosCliente',
+templateUrl: 'productosCliente.html',
 controller : 'myCtrl'
 })
 
@@ -217,6 +232,28 @@ $urlRouterProvider.otherwise("/");
 
     };
 
+    $scope.Abono=function(id_cliente,monto,id_producto)
+    {
+        $http.get("http://bdpi7d.esy.es/abono_cliente.php?id_Cliente="+id_cliente+"&monto="+monto+"&id_Producto="+id_producto).then(function(response) {
+            alert("Abono realizado con exito!! "+response.data.estatus);
+        }, function(error){
+            alert("Abono realizado con exito");
+            $scope.ListadoPClientes();
+            $state.go('productosCliente',{reload: true});
+        });
+
+    };
+
+    $scope.ListadoPClientes=function()
+    {
+        $http.get("http://bdpi7d.esy.es/productos_cliente.php?id="+$scope.idCliente).then(function(response) {
+            $scope.myDataPDC = response.data.records;
+            //alert('#'+myData.length);
+        });
+
+    };
+
+
      $scope.ListadoProductos=function()
     {
         $http.get("http://bdpi7d.esy.es/productos_disponibles.php?id="+$scope.id).then(function(response) {
@@ -306,6 +343,7 @@ $urlRouterProvider.otherwise("/");
             $window.localStorage["passwordV"]=$scope.passwordVendedor;
             $state.go('home',{reload: true});
             $scope.ListadoC();
+            $scope.ListadoP();
         });
     };
 
@@ -361,5 +399,6 @@ $urlRouterProvider.otherwise("/");
     $scope.ListadoC();
     $scope.ListadoP();
     $scope.ListadoProductos();
+    $scope.ListadoPClientes();
 
 })

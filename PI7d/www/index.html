@@ -86,6 +86,11 @@ Listado de Clientes
     <i class="icon ion-ios-edit"></i>{{ x.nombre + '  ' + x.apellido }}
 </a>
 <div class="buttons">
+
+	<button class="button add2" ui-sref="productosCliente" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
+	<i class="icon ion-android-options"></i>
+	</button>
+
 	<button class="button add" ui-sref="ProductosVenta" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
 	<i class="icon ion-android-cart"></i>
 	</button>
@@ -558,7 +563,7 @@ Listado de Productos
 <div class="list">
 	<div class="list">
 	<label class="item item-input item-stacked-label">
-		<span class="input-label"><strong> Nueva venta para el cliente {{nombreCliente}} </strong></span>
+		<span class="input-label"><strong> Prodcuto {{nombreProducto}} </strong></span>
 	</label>
 	
 	<label class="item item-input item-stacked-label">
@@ -602,13 +607,54 @@ Listado de Productos
 
 <center>
 	<button class="button button-dark" ng-sref="Productos" ng-click="VentaP({{idProducto}});">
-	Editar producto
+	Vender
 	</button>
 </center>
 
 </ion-content>
 </ion-view>
 </script>
+
+<script id="productosCliente.html" type="text/ng-template">
+<!-- The title of the ion-view will be shown on the navbar -->
+<ion-view title="Productos del cliente {{nombreCliente}}">
+<ion-nav-buttons side="left">
+
+</ion-nav-buttons>
+
+<ion-nav-buttons side="right">
+<button class="button" ng-click="Out()" onclick="document.getElementById('footer').style.visibility = 'hidden';">
+<RightButton!>Cerrar sesion</RightButton!>
+</button>
+</ion-nav-buttons>
+
+<ion-content ng-controller="myCtrl">
+
+<div class="list">
+	<div class="list">
+	<label class="item item-input item-stacked-label">
+		<span class="input-label"><strong> Productos del cliente {{nombreCliente}} </strong></span>
+	</label>
+
+</div>
+
+<ul class="list">
+<div class="item item-divider">
+Listado de Productos
+</div> 
+<li ng-repeat="x in myDataPDC" class="item item-button-right">
+<a class="item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Monto pendiente: ' + x.montoPendiente + ' - Pagos pendientes: ' + x.pagosPendientes + ' - Monto por pago:' + x.montoPorPago}}
+</a>
+</button>
+
+</li>
+</ul>
+
+</ion-content>
+</ion-view>
+</script>
+
 
 <script id="adminHome.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
@@ -643,7 +689,7 @@ Listado de Productos
 
 <div class="bar bar-footer">
   <div id="footer" style="visibility: hidden" class="tabs tabs-icon-left">
-  <a class="tab-item" ui-sref="perfilVendedor">
+  <a class="tab-item" ui-sref="perfilVendedor" ng-click="parametrosV('{{idVendedor}}', '{{nombreVendedor}}', '{{apellidosVendedor}}', '{{correoVendedor}}', '{{passwordVendedor}}');"">
     <i class="ion-person"></i>
     Perfil
   </a>
