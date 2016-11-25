@@ -74,72 +74,21 @@ navigator.serviceWorker.register('service-worker.js')
 <ion-content class="padding" ng-controller="myCtrl">
 <!-- The content of the page -->
 <center>
-<h1>!Bienvenido usuario {{id}}¡</h1>
+<h1>!Bienvenido¡</h1>
 </center>
 
 <ul class="list">
 <div class="item item-divider">
-Listado de Clientes
+Cobros pendientes
 </div> 
-<li ng-repeat="x in myDataC" class="item item-button-right">
-<a class="item campo" ui-sref="editarClientes" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
-    <i class="icon ion-ios-edit"></i>{{ x.nombre + '  ' + x.apellido }}
+<li ng-repeat="x in myDataCobros" class="item item-button-right">
+<a class="campo2 item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre}} <br> {{'Precio: $' + x.precio}} <br>  {{'Monto pendiente: ' + x.montoPendiente}} <br> {{'Pagos pendientes: ' + x.pagosPendientes}} <br> {{'Monto por pago:' + x.montoPorPago}} <br> {{'Pago siguiente: ' + x.siguientePago}}
 </a>
-<div class="buttons">
+</button>
 
-	<button class="button add2" ui-sref="productosCliente" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
-	<i class="icon ion-android-options"></i>
-	</button>
-
-	<button class="button add" ui-sref="ProductosVenta" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
-	<i class="icon ion-android-cart"></i>
-	</button>
-	
-	<button class="button button-assertive" ng-click="EliminarC({{x.id}});">
-	<i class="icon ion-ios-trash"></i>
-	</button>
-</div>
- 
 </li>
 </ul>
-
-<div class="item item-divider">
-Agregar Clientes
-</div> 
-<div class="list">
-	<div class="list">
-	<label class="item item-input item-stacked-label">
-		<span class="input-label">Nombre</span>
-		<input type="text" placeholder="Juen" ng-model="nombreC">
-	</label>
-
-	<label class="item item-input item-stacked-label">
-		<span class="input-label">Apellidos</span>
-		<input type="text" placeholder="Perez" ng-model="apellidoC">
-	</label>
-
-	<label class="item item-input item-stacked-label">
-		<span class="input-label">Domicilio</span>
-		<input type="text" ng-model="domicilioC">
-	</label>
-
-	<label class="item item-input item-stacked-label">
-		<span class="input-label">Telefono</span>
-		<input type="text" ng-model="telefonoC">
-	</label>
-
-	<label class="item item-input item-stacked-label">
-		<span class="input-label">Correo</span>
-		<input type="email" placeholder="ycosio@ucol.mx" ng-model="correoC">
-	</label>
-
-</div>
-
-<center>
-	<button class="button button-dark" ng-click="RegistrarC();">
-	Registrar Cliente
-	</button>
-</center>
 
 <br><br><br>
 
@@ -287,7 +236,7 @@ Listado de Productos
 	</button>
 </center>
 <br><br>
-
+<br><br><br>
 </ion-content>
 </ion-view>
 </script>
@@ -507,7 +456,7 @@ Listado de Productos
 
 <script id="ProductosVenta.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Productos para venta">
+<ion-view title="Venta">
 <ion-nav-buttons side="left">
 
 </ion-nav-buttons>
@@ -540,14 +489,14 @@ Listado de Productos
 
 </li>
 </ul>
-
+<br><br><br>
 </ion-content>
 </ion-view>
 </script>
 
 <script id="Venta.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Venta {{nombreProducto}}" cache-view="false">
+<ion-view title="{{nombreProducto}}" cache-view="false">
 <ion-nav-buttons side="left">
 
 </ion-nav-buttons>
@@ -617,7 +566,7 @@ Listado de Productos
 
 <script id="productosCliente.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Productos del cliente {{nombreCliente}}">
+<ion-view title="Compras">
 <ion-nav-buttons side="left">
 
 </ion-nav-buttons>
@@ -650,37 +599,93 @@ Listado de Productos
 
 </li>
 </ul>
-
+<br><br><br>
 </ion-content>
 </ion-view>
 </script>
 
 
-<script id="adminHome.html" type="text/ng-template">
+<script id="Clientes.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Admin">
+<ion-view title="Clientes" cache-view="false">
 <ion-nav-buttons side="left">
 
-</ion-nav-buttons>
-
+</ion-nav-buttons> 
 <ion-nav-buttons side="right">
 <button class="button" ng-click="Out()" onclick="document.getElementById('footer').style.visibility = 'hidden';">
 <RightButton!>Cerrar sesion</RightButton!>
 </button>
 </ion-nav-buttons>
 
-<ion-content class="padding">
-	<ul class="list">
-		<div class="item item-divider">
-			Listado de Clientes
-		</div> 
-		<li ng-repeat="x in myData" class="item item-button-right">
-			{{ x.id + ' : ' + x.nombre }}
-			<button class="button button-assertive" ng-click="EliminarV({{x.id}});">
-			<i class="icon ion-ios-trash"></i>
-			</button>	
-		</li>
-	</ul>
+<ion-content class="padding" ng-controller="myCtrl">
+<!-- The content of the page -->
+
+<ul class="list">
+<div class="item item-divider">
+Listado de Clientes
+</div> 
+<li ng-repeat="x in myDataC" class="item item-button-right">
+<a class="item campo" ui-sref="editarClientes" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
+    <i class="icon ion-ios-edit"></i>{{ x.nombre + '  ' + x.apellido }}
+</a>
+<div class="buttons buttons2">
+
+	<button class="button add2" ui-sref="productosCliente" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
+	<i class="icon ion-android-options"></i>
+	</button>
+
+	<button class="button add" ui-sref="ProductosVenta" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
+	<i class="icon ion-android-cart"></i>
+	</button>
+	
+	<button class="button button-assertive" ng-click="EliminarC({{x.id}});">
+	<i class="icon ion-ios-trash"></i>
+	</button>
+</div>
+ 
+</li>
+</ul>
+
+<div class="item item-divider">
+Agregar Clientes
+</div> 
+<div class="list">
+	<div class="list">
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Nombre</span>
+		<input type="text" placeholder="Juen" ng-model="nombreC">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Apellidos</span>
+		<input type="text" placeholder="Perez" ng-model="apellidoC">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Domicilio</span>
+		<input type="text" ng-model="domicilioC">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Telefono</span>
+		<input type="text" ng-model="telefonoC">
+	</label>
+
+	<label class="item item-input item-stacked-label">
+		<span class="input-label">Correo</span>
+		<input type="email" placeholder="ycosio@ucol.mx" ng-model="correoC">
+	</label>
+
+</div>
+
+<center>
+	<button class="button button-dark" ng-click="RegistrarC();">
+	Registrar Cliente
+	</button>
+</center>
+
+<br><br><br>
+
 </ion-content>
 </ion-view>
 </script>
@@ -696,6 +701,10 @@ Listado de Productos
   <a class="tab-item" ui-sref="home">
     <i class="icon ion-home"></i>
     Home
+  </a>
+  <a class="tab-item" ui-sref="Clientes">
+    <i class="ion-person-stalker"></i>
+    Clientes
   </a>
   <a class="tab-item" ui-sref="Productos">
     <i class="ion-tshirt"></i>

@@ -28,7 +28,7 @@ $mes=$hoy['mon'];
 			$dia=((intval($hoy['mday'])/7)*7)+7;
 			if($dia>30)
 			{
-				$dia=15;
+				$dia=$dia-30;
 				$mes=intval($hoy[1])+1;
 				if($mes>12);
 					$mes=1;

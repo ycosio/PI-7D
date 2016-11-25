@@ -27,7 +27,7 @@ $mes=$hoy[1];
 			$dia=((intval($hoy[0])/7)*7)+7;
 			if($dia>30)
 			{
-				$dia=7;
+				$dia=$dia-30;
 				$mes=intval($hoy[1])+1;
 				if($mes>12);
 					$mes=1;

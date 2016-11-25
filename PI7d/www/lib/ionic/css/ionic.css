@@ -5703,17 +5703,17 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
  * --------------------------------------------------
  */
  a.campo{
-  width: 15%;
+  width: 69%;
   height: 34px;
   padding-top: 5px;
  }
  a.campo2{
-  width: 22%;
+  width: 100%;
   height: 130px;
   padding-top: 5px;
  }
   a.campo3{
-  width: 22%;
+  width: 100%;
   height: 70px;
   padding-top: 5px;
  }
@@ -5729,9 +5729,10 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
   color: black;
   margin-right: 15px;
  }
-.buttons{
-  width: 14%;
-  right: -60px;
+
+.buttons.buttons2{
+  width: 31%;
+  right: -160px;
 }
 .item {
   border-color: #ddd;

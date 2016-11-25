@@ -107,6 +107,13 @@ templateUrl: 'productosCliente.html',
 controller : 'myCtrl'
 })
 
+.state('Clientes', {
+cache: false,
+url: '/Clientes',
+templateUrl: 'Clientes.html',
+controller : 'myCtrl'
+})
+
 $urlRouterProvider.otherwise("/");
 })
 
@@ -150,7 +157,7 @@ $urlRouterProvider.otherwise("/");
         {
             $http.get("http://bdpi7d.esy.es/login_PI.php?correo="+$scope.correoL+"&pass="+$scope.passwordL).then(function(response) {
                 if(response.data.records==null)
-                    alert("Usurio o contraseña invalidos");
+                    alert("Usuario o contraseña invalidos");
                 else
                 {
                     $window.localStorage["id"]=response.data.records[0].id;
@@ -170,9 +177,15 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/registroVendedor_PI.php?nombre='+$scope.nombre+'&apellidos='+$scope.apellidos+'&correo='+$scope.correo+'&pass='+$scope.pass).then(function(response){
-            alert("Vendedor guardado ocon exito!! "+response.data.estatus);
+             alert("Vendedor resgitrado");
+            $scope.nombre="";
+            $scope.apellidos="";
+            $scope.correo="";
+            $scope.pass="";
+            $state.go('login');
+            $scope.ListadoV();
         }, function(error){
-            alert("Vendedor agregado con exito");
+            alert("Vendedor registrado");
             $scope.nombre="";
             $scope.apellidos="";
             $scope.correo="";
@@ -186,9 +199,10 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/registroCliente_PI.php?id='+$scope.id+'&nombre='+$scope.nombreC+'&apellido='+$scope.apellidoC+'&domicilio='+$scope.domicilioC+'&telefono='+$scope.telefonoC+'&correo='+$scope.correoC).then(function(response){
-            alert("Cliente guardado ocon exito!! "+response.data.estatus);
+            alert("Cliente registrado con exito");
+            $scope.ListadoC();
         }, function(error){
-            alert("Cliente agregado con exito");
+            alert("Cliente registrado con exito");
             $scope.ListadoC();
         });
     };
@@ -197,9 +211,10 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/registroProducto_PI.php?id='+$scope.id+'&nombre='+$scope.nombreP+'&precio='+$scope.precioP+'&cantidad='+$scope.cantidadP+'&descripcion='+$scope.descripcionP).then(function(response){
-            alert("Producto guardado ocon exito!! "+response.data.estatus);
+            alert("Producto registrado con exito");
+            $scope.ListadoP();
         }, function(error){
-            alert("Producto agregado con exito");
+            alert("Producto registrado con exito");
             $scope.ListadoP();
         });
     };
@@ -209,6 +224,15 @@ $urlRouterProvider.otherwise("/");
     {
         $http.get("http://bdpi7d.esy.es/all_vendedores.php").then(function(response) {
             $scope.myDataV = response.data.records;
+            //alert('#'+myData.length);
+        });
+
+    };
+
+    $scope.ListadoCobros=function()
+    {
+        $http.get("http://bdpi7d.esy.es/ventas_vendedor.php?id="+$scope.id).then(function(response) {
+            $scope.myDataCobros = response.data.records;
             //alert('#'+myData.length);
         });
 
@@ -234,14 +258,16 @@ $urlRouterProvider.otherwise("/");
 
     $scope.Abono=function(id_cliente,monto,id_producto,plazo,fechaAnterior,id_Venta)
     {
-        alert(plazo);
-        alert(fechaAnterior);
         $http.get("http://bdpi7d.esy.es/abono_cliente.php?id_Cliente="+id_cliente+"&monto="+monto+"&id_Producto="+id_producto+"&plazo="+plazo+"&fechaAnterior="+fechaAnterior+"&id_Venta="+id_Venta).then(function(response) {
-            alert("Abono realizado con exito!! "+response.data.estatus);
-        }, function(error){
-            alert("Abono realizado con exito");
+            alert("Abono realizado");
             $scope.ListadoPClientes();
-            $state.go('productosCliente',{reload: true});
+            $scope.ListadoCobros();
+            $state.go('home',{reload: true});
+        }, function(error){
+            alert("Abono realizado");
+            $scope.ListadoPClientes();
+            $scope.ListadoCobros();
+            $state.go('home',{reload: true});
         });
 
     };
@@ -268,10 +294,11 @@ $urlRouterProvider.otherwise("/");
         $scope.EliminarV=function(id)
     {
         $http.get("http://bdpi7d.esy.es/eliminar_vendedor.php?id="+id).then(function(response) {
+            alert("Vendedor eliminado");
             $scope.ListadoV();
             //alert('#'+myData.length);
         },function(error){
-            alert("Vendedor eliminado con exito");
+            alert("Vendedor eliminado");
             $scope.ListadoV();
         });
     }
@@ -279,10 +306,11 @@ $urlRouterProvider.otherwise("/");
      $scope.EliminarC=function(id)
     {
         $http.get("http://bdpi7d.esy.es/eliminar_cliente.php?id="+id).then(function(response) {
+            alert("Cliente eliminado");
             $scope.ListadoC();
             //alert('#'+myData.length);
         },function(error){
-            alert("Cliente eliminado con exito");
+            alert("Cliente eliminado");
             $scope.ListadoC();
         });
     }
@@ -290,10 +318,11 @@ $urlRouterProvider.otherwise("/");
          $scope.EliminarP=function(id)
     {
         $http.get("http://bdpi7d.esy.es/eliminar_producto.php?id="+id).then(function(response) {
+            alert("Producto eliminado");
             $scope.ListadoP();
             //alert('#'+myData.length);
         },function(error){
-            alert("Producto eliminado con exito");
+            alert("Producto eliminado");
             $scope.ListadoP();
         });
     }
@@ -302,7 +331,13 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/editarProducto_PI.php?id='+id+'&nombre='+$scope.nombreProducto+'&precio='+$scope.precioProducto+'&cantidad='+$scope.cantidadProducto+'&descripcion='+$scope.descripcionProducto).then(function(response){
-            alert("Producto guardado ocon exito!! "+response.data.estatus);
+            alert("Producto guardado con exito");
+            $scope.nombreProducto="";
+            $scope.precioProducto="";
+            $scope.cantidadProducto="";
+            $scope.descripcionProducto="";
+            $state.go('Productos',{reload: true});
+            $scope.ListadoP();
         }, function(error){
             alert("Producto guardado con exito");
             $scope.nombreProducto="";
@@ -318,9 +353,17 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/nuevaVenta_PI.php?id_Producto='+$scope.idProducto+'&precio_Producto='+$scope.precioProducto+'&id_Cliente='+$scope.idCliente+'&cantidad='+$scope.cantidadProducto+'&plazo='+$scope.plazoVenta+'&pagos='+$scope.pagosPendientes).then(function(response){
-            alert("Producto guardado ocon exito!! "+response.data.estatus);
+            alert("Venta realizada");
+            $scope.idProducto="";
+            $scope.precioProducto="";
+            $scope.idCliente="";
+            $scope.cantidadProducto="";
+            $scope.plazoVenta="1";
+            $scope.pagosPendientes="6";
+            $state.go('ProductosVenta',{reload: true});
+            $scope.ListadoProductos();
         }, function(error){
-            alert("Venta realizada con exito");
+            alert("Venta realizada");
             $scope.idProducto="";
             $scope.precioProducto="";
             $scope.idCliente="";
@@ -336,9 +379,16 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/editarVendedor_PI.php?id='+id+'&nombre='+$scope.nombreVendedor+'&apellidos='+$scope.apellidosVendedor+'&correo='+$scope.correoVendedor+'&password='+$scope.passwordVendedor).then(function(response){
-            alert("Vendedor guardado ocon exito!! "+response.data.estatus);
+            alert("Perfil guardado con exito");
+            $window.localStorage["nombreV"]=$scope.nombreVendedor;
+            $window.localStorage["apellidosV"]=$scope.apellidosVendedor;
+            $window.localStorage["correoV"]=$scope.correoVendedor;
+            $window.localStorage["passwordV"]=$scope.passwordVendedor;
+            $state.go('home',{reload: true});
+            $scope.ListadoC();
+            $scope.ListadoP();
         }, function(error){
-            alert("Vendedor guardado con exito");
+            alert("Perfil guardado con exito");
             $window.localStorage["nombreV"]=$scope.nombreVendedor;
             $window.localStorage["apellidosV"]=$scope.apellidosVendedor;
             $window.localStorage["correoV"]=$scope.correoVendedor;
@@ -353,7 +403,14 @@ $urlRouterProvider.otherwise("/");
     {
         // Agregar e registro
         $http.get('http://bdpi7d.esy.es/editarCliente_PI.php?id='+id+'&nombre='+$scope.nombreCliente+'&apellido='+$scope.apellidoCliente+'&correo='+$scope.correoCliente+'&domicilio='+$scope.domicilioCliente+'&telefono='+$scope.telefonoCliente).then(function(response){
-            alert("Cliente guardado ocon exito!! "+response.data.estatus);
+            alert("Cliente guardado con exito");
+            $scope.nombreCliente="";
+            $scope.apellidoCliente="";
+            $scope.correoCliente="";
+            $scope.domicilioCliente="";
+            $scope.telefonoCliente="";
+            $state.go('home',{reload: true});
+            $scope.ListadoC();
         }, function(error){
             alert("Cliente guardado con exito");
             $scope.nombreCliente="";
@@ -402,5 +459,5 @@ $urlRouterProvider.otherwise("/");
     $scope.ListadoP();
     $scope.ListadoProductos();
     $scope.ListadoPClientes();
-
+    $scope.ListadoCobros();
 })
