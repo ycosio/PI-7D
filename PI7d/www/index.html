@@ -245,8 +245,8 @@ Agregar Clientes
 Listado de Productos
 </div> 
 <li ng-repeat="x in myDataP" class="item item-button-right">
-<a class="item" ng-click="parametrosP('{{x.id}}', '{{x.nombre}}', '{{x.precio}}', '{{x.cantidad}}', '{{x.descripcion}}');">
- 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Disponibles: ' + x.cantidad  }}
+<a class="campo3 item" ng-click="parametrosP('{{x.id}}', '{{x.nombre}}', '{{x.precio}}', '{{x.cantidad}}', '{{x.descripcion}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre}} <br> {{'Precio: $' + x.precio}} <br> {{'Disponibles: ' + x.cantidad  }}
 </a>
 <button class="button button-assertive" ng-click="EliminarP({{x.id}});">
 <i class="icon ion-ios-trash"></i>
@@ -533,8 +533,8 @@ Listado de Productos
 Listado de Productos
 </div> 
 <li ng-repeat="x in myDataPD" class="item item-button-right">
-<a class="item" ui-sref="Venta" ng-click="parametrosP('{{x.id}}', '{{x.nombre}}', '{{x.precio}}', '{{x.cantidad}}', '{{x.descripcion}}');">
- 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Disponibles: ' + x.cantidad }}
+<a class="campo3 item" ui-sref="Venta" ng-click="parametrosP('{{x.id}}', '{{x.nombre}}', '{{x.precio}}', '{{x.cantidad}}', '{{x.descripcion}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre}} <br> {{'Precio: $' + x.precio}} <br> {{'Disponibles: ' + x.cantidad  }}
 </a>
 </button>
 
@@ -643,8 +643,8 @@ Listado de Productos
 Listado de Productos
 </div> 
 <li ng-repeat="x in myDataPDC" class="item item-button-right">
-<a class="item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
- 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Monto pendiente: ' + x.montoPendiente + ' - Pagos pendientes: ' + x.pagosPendientes + ' - Monto por pago:' + x.montoPorPago+ ' - Pago siguiente: ' + x.siguientePago}}
+<a class="campo2 item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre}} <br> {{'Precio: $' + x.precio}} <br>  {{'Monto pendiente: ' + x.montoPendiente}} <br> {{'Pagos pendientes: ' + x.pagosPendientes}} <br> {{'Monto por pago:' + x.montoPorPago}} <br> {{'Pago siguiente: ' + x.siguientePago}}
 </a>
 </button>
 

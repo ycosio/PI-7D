@@ -3764,6 +3764,15 @@ a.subdued {
     background-color: transparent;
     color: #007aff;
     font-size: 21px; }
+    .action-sheet .button2 {
+    display: block;
+    padding: 10px;
+    width: 100%;
+    border-radius: 0;
+    border-color: #d1d3d6;
+    background-color: transparent;
+    color: #007aff;
+    font-size: 21px; }
     .action-sheet .button:hover {
       color: #007aff; }
     .action-sheet .button.destructive {
@@ -5693,6 +5702,37 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
  * Items
  * --------------------------------------------------
  */
+ a.campo{
+  width: 15%;
+  height: 34px;
+  padding-top: 5px;
+ }
+ a.campo2{
+  width: 22%;
+  height: 130px;
+  padding-top: 5px;
+ }
+  a.campo3{
+  width: 22%;
+  height: 70px;
+  padding-top: 5px;
+ }
+ button.button.add{
+ /* right: 65px;*/
+  background-color:#0c60ee;
+  color: white;
+  margin-right: 15px;
+ }
+  button.button.add2{
+ /* right: 65px;*/
+  background-color:#C3C7C5;
+  color: black;
+  margin-right: 15px;
+ }
+.buttons{
+  width: 14%;
+  right: -60px;
+}
 .item {
   border-color: #ddd;
   background-color: #fff;
@@ -5701,7 +5741,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
   z-index: 2;
   display: block;
   margin: -1px;
-  padding: 16px;
+  padding: 10px;
   border-width: 1px;
   border-style: solid;
   font-size: 16px; }
