@@ -23,15 +23,19 @@ $total=intval($precio_Producto)*intval($cantidad);
 $hoy = getdate();
 $montoPago=intval($total)/intval($pagosPendientes);
 $mes=$hoy['mon'];
+$ano=$hoy['year'];
 	switch ($plazo) {
 		case '1':
 			$dia=((intval($hoy['mday'])/7)*7)+7;
 			if($dia>30)
 			{
 				$dia=$dia-30;
-				$mes=intval($hoy[1])+1;
-				if($mes>12);
+				$mes=intval($hoy['mon'])+1;
+				if($mes>12)
+				{
 					$mes=1;
+					$ano=$ano+1;
+				}
 			}
 			break;
 
@@ -41,20 +45,26 @@ $mes=$hoy['mon'];
 			{
 				$dia=15;
 				$mes=intval($hoy['mon'])+1;
-				if($mes>12);
+				if($mes>12)
+				{
 					$mes=1;
+					$ano=$ano+1;
+				}
 			}
 			break;
 		
 		case '3':
 				$mes=intval($hoy['mon'])+1;
-					if($mes>12);
+				if($mes>12)
+				{
 					$mes=1;
+					$ano=$ano+1;
+				}
 				$dia=30;
 			break;
 	}
 
-	$siguientePago=$dia."-".$mes."-".$hoy['year'];
+	$siguientePago=$dia."-".$mes."-".$ano;
 
 $cadena='INSERT INTO Ventas(id_Cliente,id_Producto,fecha_Compra,cantidad,total,plazo,montoPorPago,pagosPendientes,montoPendiente,siguientePago) VALUES ("'.$id_Cliente.'","'.$id_Producto.'",(select date("now")),"'.$cantidad.'","'.$total.'","'.$plazo.'","'.$montoPago.'","'.$pagosPendientes.'","'.$total.'","'.$siguientePago.'")';
 //echo $cadena;

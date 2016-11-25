@@ -21,40 +21,50 @@ $bd = new MiBD();
 
 $hoy = split("-", $fechaAnterior);
 
-$mes=$hoy[1];
+$mes=(intval($hoy[1])/1);
+$ano=(intval($hoy[2])/1);
 	switch ($plazo) {
 		case '1':
 			$dia=((intval($hoy[0])/7)*7)+7;
-			if($dia>30)
+			if($dia > 30)
 			{
 				$dia=$dia-30;
-				$mes=intval($hoy[1])+1;
-				if($mes>12);
+				$mes=$mes+1;
+				if($mes > 12)
+				{
 					$mes=1;
+					$ano=$ano+1;
+				}
 			}
 			break;
 
 		case '2':
 			$dia=((intval($hoy[0])/15)*15)+15;
-			if($dia>30)
+			if($dia > 30)
 			{
 				$dia=15;
-				$mes=intval($hoy[1])+1;
-				if($mes>12);
+				$mes=$mes+1;
+				if($mes > 12)
+				{
 					$mes=1;
+					$ano=$ano+1;
+				}
 			}
 			break;
 		
 		case '3':
-				$mes=intval($hoy[1])+1;
-				if($mes>12);
+				$mes=$mes+1;
+				if($mes>12)
+				{
 					$mes=1;
+					$ano=$ano+1;
+				}
 				$dia=30;
 			break;
 	}
 
-	$siguientePago=$dia."-".$mes."-".$hoy[2];
-	//echo($siguientePago);
+	$siguientePago=$dia."-".$mes."-".$ano;
+//	echo($siguientePago);
 //die;
 
 $cadena='INSERT INTO Abonos(id_Cliente,fecha,monto) VALUES ("'.$id_Cliente.'",(select date("now")),"'.$monto.'")';
