@@ -20,10 +20,43 @@ class MiBD extends SQLite3
 $bd = new MiBD();
 
 $total=intval($precio_Producto)*intval($cantidad);
-
+$hoy = getdate();
 $montoPago=intval($total)/intval($pagosPendientes);
+$mes=$hoy['mon'];
+	switch ($plazo) {
+		case '1':
+			$dia=((intval($hoy['mday'])/7)*7)+7;
+			if($dia>30)
+			{
+				$dia=15;
+				$mes=intval($hoy[1])+1;
+				if($mes>12);
+					$mes=1;
+			}
+			break;
 
-$cadena='INSERT INTO Ventas(id_Cliente,id_Producto,fecha_Compra,cantidad,total,plazo,montoPorPago,pagosPendientes,montoPendiente) VALUES ("'.$id_Cliente.'","'.$id_Producto.'",(select date("now")),"'.$cantidad.'","'.$total.'","'.$plazo.'","'.$montoPago.'","'.$pagosPendientes.'","'.$total.'")';
+		case '2':
+			$dia=((intval($hoy['mday'])/15)*15)+15;
+			if($dia>30)
+			{
+				$dia=15;
+				$mes=intval($hoy['mon'])+1;
+				if($mes>12);
+					$mes=1;
+			}
+			break;
+		
+		case '3':
+				$mes=intval($hoy['mon'])+1;
+					if($mes>12);
+					$mes=1;
+				$dia=30;
+			break;
+	}
+
+	$siguientePago=$dia."-".$mes."-".$hoy['year'];
+
+$cadena='INSERT INTO Ventas(id_Cliente,id_Producto,fecha_Compra,cantidad,total,plazo,montoPorPago,pagosPendientes,montoPendiente,siguientePago) VALUES ("'.$id_Cliente.'","'.$id_Producto.'",(select date("now")),"'.$cantidad.'","'.$total.'","'.$plazo.'","'.$montoPago.'","'.$pagosPendientes.'","'.$total.'","'.$siguientePago.'")';
 //echo $cadena;
 $bd->exec($cadena);
 

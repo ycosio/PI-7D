@@ -643,8 +643,8 @@ Listado de Productos
 Listado de Productos
 </div> 
 <li ng-repeat="x in myDataPDC" class="item item-button-right">
-<a class="item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}');">
- 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Monto pendiente: ' + x.montoPendiente + ' - Pagos pendientes: ' + x.pagosPendientes + ' - Monto por pago:' + x.montoPorPago}}
+<a class="item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
+ 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre + ' - Precio: $' + x.precio + ' - Monto pendiente: ' + x.montoPendiente + ' - Pagos pendientes: ' + x.pagosPendientes + ' - Monto por pago:' + x.montoPorPago+ ' - Pago siguiente: ' + x.siguientePago}}
 </a>
 </button>
 
@@ -689,7 +689,7 @@ Listado de Productos
 
 <div class="bar bar-footer">
   <div id="footer" style="visibility: hidden" class="tabs tabs-icon-left">
-  <a class="tab-item" ui-sref="perfilVendedor" ng-click="parametrosV('{{idVendedor}}', '{{nombreVendedor}}', '{{apellidosVendedor}}', '{{correoVendedor}}', '{{passwordVendedor}}');"">
+  <a class="tab-item" ui-sref="perfilVendedor" ng-click="parametrosV('{{idVendedor}}', '{{nombreVendedor}}', '{{apellidosVendedor}}', '{{correoVendedor}}', '{{passwordVendedor}}');" "="">
     <i class="ion-person"></i>
     Perfil
   </a>

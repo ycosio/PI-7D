@@ -232,9 +232,11 @@ $urlRouterProvider.otherwise("/");
 
     };
 
-    $scope.Abono=function(id_cliente,monto,id_producto)
+    $scope.Abono=function(id_cliente,monto,id_producto,plazo,fechaAnterior,id_Venta)
     {
-        $http.get("http://bdpi7d.esy.es/abono_cliente.php?id_Cliente="+id_cliente+"&monto="+monto+"&id_Producto="+id_producto).then(function(response) {
+        alert(plazo);
+        alert(fechaAnterior);
+        $http.get("http://bdpi7d.esy.es/abono_cliente.php?id_Cliente="+id_cliente+"&monto="+monto+"&id_Producto="+id_producto+"&plazo="+plazo+"&fechaAnterior="+fechaAnterior+"&id_Venta="+id_Venta).then(function(response) {
             alert("Abono realizado con exito!! "+response.data.estatus);
         }, function(error){
             alert("Abono realizado con exito");
