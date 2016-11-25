@@ -21,11 +21,11 @@ $bd = new MiBD();
 
 $hoy = split("-", $fechaAnterior);
 
-$mes=(intval($hoy[1])/1);
-$ano=(intval($hoy[2])/1);
+$mes=intval($hoy[1]);
+$ano=intval($hoy[0]);
 	switch ($plazo) {
 		case '1':
-			$dia=((intval($hoy[0])/7)*7)+7;
+			$dia=((intval($hoy[2])/7)*7)+7;
 			if($dia > 30)
 			{
 				$dia=$dia-30;
@@ -39,7 +39,7 @@ $ano=(intval($hoy[2])/1);
 			break;
 
 		case '2':
-			$dia=((intval($hoy[0])/15)*15)+15;
+			$dia=((intval($hoy[2])/15)*15)+15;
 			if($dia > 30)
 			{
 				$dia=15;
@@ -53,7 +53,9 @@ $ano=(intval($hoy[2])/1);
 			break;
 		
 		case '3':
-				$mes=$mes+1;
+				if($dia==30)
+					$mes=$mes+1;
+				
 				if($mes>12)
 				{
 					$mes=1;
@@ -63,7 +65,7 @@ $ano=(intval($hoy[2])/1);
 			break;
 	}
 
-	$siguientePago=$dia."-".$mes."-".$ano;
+	$siguientePago=$ano."-".$mes."-".$dia;
 //	echo($siguientePago);
 //die;
 

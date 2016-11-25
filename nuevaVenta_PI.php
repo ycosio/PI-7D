@@ -54,7 +54,9 @@ $ano=$hoy['year'];
 			break;
 		
 		case '3':
-				$mes=intval($hoy['mon'])+1;
+				if($hoy['mday']==30)
+					$mes=intval($hoy['mon'])+1;
+
 				if($mes>12)
 				{
 					$mes=1;
@@ -64,7 +66,7 @@ $ano=$hoy['year'];
 			break;
 	}
 
-	$siguientePago=$dia."-".$mes."-".$ano;
+	$siguientePago=$ano."-".$mes."-".$dia;
 
 $cadena='INSERT INTO Ventas(id_Cliente,id_Producto,fecha_Compra,cantidad,total,plazo,montoPorPago,pagosPendientes,montoPendiente,siguientePago) VALUES ("'.$id_Cliente.'","'.$id_Producto.'",(select date("now")),"'.$cantidad.'","'.$total.'","'.$plazo.'","'.$montoPago.'","'.$pagosPendientes.'","'.$total.'","'.$siguientePago.'")';
 //echo $cadena;
