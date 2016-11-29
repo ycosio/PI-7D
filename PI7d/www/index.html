@@ -82,7 +82,7 @@ navigator.serviceWorker.register('service-worker.js')
 Cobros pendientes
 </div> 
 <li ng-repeat="x in myDataCobros" class="item item-button-right">
-<a class="campo2 item" ng-click="Abono('{{idCliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
+<a class="campo2 item" ng-click="Abono('{{x.id_Cliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
  	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre}} <br> {{'Precio: $' + x.precio}} <br>  {{'Monto pendiente: ' + x.montoPendiente}} <br> {{'Pagos pendientes: ' + x.pagosPendientes}} <br> {{'Monto por pago:' + x.montoPorPago}} <br> {{'Pago siguiente: ' + x.siguientePago}}
 </a>
 </button>
