@@ -61,7 +61,7 @@ navigator.serviceWorker.register('service-worker.js')
 
 <script id="home.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Home {{nombreVendedor}}" cache-view="false">
+<ion-view title="Inicio {{nombreVendedor}}" cache-view="false">
 <ion-nav-buttons side="left">
 
 </ion-nav-buttons> 
@@ -83,7 +83,7 @@ Cobros pendientes
 </div> 
 <li ng-repeat="x in myDataCobros" class="item item-button-right">
 <a class="campo2 item" ng-click="Abono('{{x.id_Cliente}}', '{{x.montoPorPago}}','{{x.id}}', '{{x.plazo}}', '{{x.siguientePago}}','{{x.id_Venta}}');">
- 	<i class="icon ion-ios-edit"></i>{{ 'Producto: ' + x.nombre}} <br> {{'Precio: $' + x.precio}} <br>  {{'Monto pendiente: ' + x.montoPendiente}} <br> {{'Pagos pendientes: ' + x.pagosPendientes}} <br> {{'Monto por pago:' + x.montoPorPago}} <br> {{'Pago siguiente: ' + x.siguientePago}}
+ 	<i class="icon ion-ios-edit"></i>{{'Cliente: ' + x.Cliente}} <br> {{ 'Producto: ' + x.nombre}} <br>  {{'Monto pendiente: ' + x.montoPendiente}} <br> {{'Pagos pendientes: ' + x.pagosPendientes}} <br> {{'Monto por pago:' + x.montoPorPago}} <br> {{'Pago siguiente: ' + x.siguientePago}}
 </a>
 </button>
 
@@ -294,7 +294,7 @@ Listado de Productos
 
 <script id="perfilVendedor.html" type="text/ng-template">
 <!-- The title of the ion-view will be shown on the navbar -->
-<ion-view title="Editar perfil {{id}}">
+<ion-view title="Editar perfil">
 <ion-nav-buttons side="left">
 
 </ion-nav-buttons>
@@ -631,7 +631,7 @@ Listado de Clientes
 <div class="buttons buttons2">
 
 	<button class="button add2" ui-sref="productosCliente" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
-	<i class="icon ion-android-options"></i>
+	<i class="icon ion-cash"></i>
 	</button>
 
 	<button class="button add" ui-sref="ProductosVenta" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
@@ -700,7 +700,7 @@ Agregar Clientes
   </a>
   <a class="tab-item" ui-sref="home">
     <i class="icon ion-home"></i>
-    Home
+    Inicio
   </a>
   <a class="tab-item" ui-sref="Clientes">
     <i class="ion-person-stalker"></i>

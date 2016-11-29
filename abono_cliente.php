@@ -25,7 +25,7 @@ $mes=$hoy[1];
 $ano=$hoy[0];
 	switch ($plazo) {
 		case '1':
-			$dia=((intval($hoy[2])/7)*7)+7;
+			$dia=(intval(intval($hoy[2])/7)*7)+7;
 			if($dia>30)
 			{
 				$dia=$dia-30;
@@ -39,7 +39,7 @@ $ano=$hoy[0];
 			break;
 
 		case '2':
-			$dia=((intval($hoy[2])/15)*15)+15;
+			$dia=(intval(intval($hoy[2])/15)*15)+15;
 			if($dia>30)
 			{
 				$dia=15;
@@ -50,6 +50,8 @@ $ano=$hoy[0];
 					$ano=$ano+1;
 				}
 			}
+			else
+				$dia=30;
 			break;
 		
 		case '3':
