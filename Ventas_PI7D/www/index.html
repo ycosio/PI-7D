@@ -45,6 +45,7 @@ navigator.serviceWorker.register('service-worker.js')
 <!-- The title of the ion-view will be shown on the navbar -->
 <ion-view title="Ventas Casa x Casa" hide-back-button="true">
 <ion-content class="padding" ng-controller="myCtrl">
+
 <div class="list list-inset">
 	          <label class="item item-input">
 	              <input type="text" placeholder="Correo" ng-model="correoL">
@@ -52,9 +53,10 @@ navigator.serviceWorker.register('service-worker.js')
 	          <label class="item item-input">
 	              <input type="password" placeholder="Password" ng-model="passwordL">
 	          </label>
-	      </div>
-	      <button class="button button-block button-calm" ng-click="Auth()">Login</button>
+</div>
+	      <button class="button button-block button-calm" ng-click="Auth()">Entrar</button>
 	      <button class="button button-block" ui-sref="registroVendedor">Registrarse</button>
+<center><img src="img/logo.png" width="60%"></center>
 </ion-content>
 </ion-view>
 </script>
@@ -631,15 +633,15 @@ Listado de Clientes
 <div class="buttons buttons2">
 
 	<button class="button add2" ui-sref="productosCliente" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
-	<i class="icon ion-cash"></i>
+	<i class="icon ion-cash" style="left: 5px; position: absolute; top: 2px;color:white;"></i>
 	</button>
 
 	<button class="button add" ui-sref="ProductosVenta" ng-click="parametrosC('{{x.id}}', '{{x.nombre}}', '{{x.apellido}}', '{{x.domicilio}}', '{{x.telefono}}', '{{x.correo}}');">
-	<i class="icon ion-android-cart"></i>
+	<i class="icon ion-android-cart" style="left: 7px; position: absolute; top: 2px;"></i>
 	</button>
 	
 	<button class="button button-assertive" ng-click="EliminarC({{x.id}});">
-	<i class="icon ion-ios-trash"></i>
+	<i class="icon ion-ios-trash" style="left: 10px;position: absolute;top: 2px;"></i>
 	</button>
 </div>
  
